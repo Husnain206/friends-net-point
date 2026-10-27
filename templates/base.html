@@ -1,0 +1,9 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#031b36"><title>{% block title %}Friends Net Point{% endblock %}</title><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head><body>
+{% if session.get('user_id') %}
+<header class="topbar"><a class="brand" href="{{ url_for('dashboard') }}"><img class="fnp-logo" src="{{ url_for('static', filename='fnp-brand.png') }}" alt="Friends Net Point — ISP Billing System"></a><div class="user-controls"><span>Admin</span><a href="{{ url_for('logout') }}">Logout</a></div></header>
+<div class="app-layout"><aside class="sidebar"><nav class="nav"><a href="{{ url_for('dashboard') }}">⌂ <span>Dashboard</span></a><a href="{{ url_for('customers') }}">♙ <span>Customers</span></a><a href="{{ url_for('packages') }}">◆ <span>Packages</span></a><a href="{{ url_for('bills') }}">▤ <span>Billing</span></a><a href="{{ url_for('payments') }}">▣ <span>Payments</span></a><a href="{{ url_for('sms') }}">✉ <span>SMS / WhatsApp</span></a><a href="{{ url_for('reports') }}">▥ <span>Reports</span></a><a href="{{ url_for('settings') }}">⚙ <span>Settings</span></a></nav></aside><div class="app-main">
+{% endif %}
+<main class="{% if not session.get('user_id') %}loginwrap{% else %}container{% endif %}">
+{% with messages = get_flashed_messages(with_categories=true) %}{% for category,message in messages %}<div class="flash {{ 'error' if category=='error' else '' }}">{{ message }}</div>{% endfor %}{% endwith %}
+{% block content %}{% endblock %}</main>
+{% if session.get('user_id') %}<footer class="footer app-footer"><span>Friends Net Point&nbsp; | &nbsp;ISP Billing System</span><span>Fast&nbsp; • &nbsp;Reliable&nbsp; • &nbsp;Secure</span></footer></div></div>{% else %}<footer class="footer">Friends Net Point · ISP Billing System</footer>{% endif %}</body></html>
